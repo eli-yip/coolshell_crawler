@@ -24,7 +24,7 @@ if __name__ == '__main__':
     # links = get_data(url)
     # print("Get data from page: ", url)
     # write_to_file(links)
-    for page_num in range(35, 74):
+    for page_num in range(2, 75):
         url = f'https://coolshell.cn/page/{page_num}'
         links = get_data(url)
         print("Get data from page: ", url)
