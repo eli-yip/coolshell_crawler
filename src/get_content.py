@@ -27,12 +27,10 @@ for url in urls:
             if response.history:
                 final_url = response.url
                 print("最终URL:", final_url)
-                content = response.content
+                text = response.text
                 # 处理获取到的内容
             else:
                 print("无重定向")
-
-            text = content.decode('utf-8')
 
             if text is not None:
                 # 获取文章内容
