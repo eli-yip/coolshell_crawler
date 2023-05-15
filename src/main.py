@@ -1,9 +1,15 @@
+"""
+Get the all article links from the pages and save them to a file.
+The file is called links.txt and is in the same directory as this file.
+"""
 import requests
 from bs4 import BeautifulSoup
 
 
 def get_data(page_url: str):
-
+    """
+    Get the all article links from the page.
+    """
     response = requests.get(page_url, timeout=1000)
     soup = BeautifulSoup(response.text, 'html.parser')
 
@@ -14,6 +20,9 @@ def get_data(page_url: str):
 
 
 def write_to_file(artical_urls: list):
+    """
+    Write the links to a file.
+    """
     with open('links.txt', 'a', encoding='utf-8') as file:
         for link in artical_urls:
             file.write(f'{link}\n')
@@ -21,9 +30,9 @@ def write_to_file(artical_urls: list):
 
 if __name__ == '__main__':
     url = 'https://coolshell.cn/'
-    # links = get_data(url)
-    # print("Get data from page: ", url)
-    # write_to_file(links)
+    links = get_data(url)
+    print("Get data from page: ", url)
+    write_to_file(links)
     for page_num in range(2, 75):
         url = f'https://coolshell.cn/page/{page_num}'
         links = get_data(url)

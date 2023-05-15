@@ -1,3 +1,10 @@
+"""
+This program is used to get the content of the articles from the Internet Archive.
+Usage: python get_content.py
+You must have a url list file called links.txt in the same directory as this file.
+The htmls of the articles will be saved in the articles directory.
+The article id is the same as the file name.
+"""
 import time
 import os
 import requests
