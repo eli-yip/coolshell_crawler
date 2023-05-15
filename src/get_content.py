@@ -1,7 +1,6 @@
 import time
 import os
 import requests
-from bs4 import BeautifulSoup
 
 # 从文件中读取URL列表，并使用set去除重复
 with open('links.txt', 'r', encoding='utf-8') as file:
