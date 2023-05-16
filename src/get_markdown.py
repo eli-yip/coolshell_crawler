@@ -4,29 +4,19 @@ from bs4 import BeautifulSoup
 import html2text
 
 
-def remove_elements_by_text(soup, text_list):
+def remove_elements_by_text(soup, text_list, level=1):
     for text in text_list:
         element = soup.find(lambda tag: tag.text.strip() == text)
         if element:
             print("find tag: ", element)
+            for _ in range(level):
+                if element.parent:
+                    element = element.parent
             element.decompose()
 
 
-def remove_grandparent_of_elements_by_text(soup, text_list):
-    for text in text_list:
-        element = soup.find(lambda tag: tag.text.strip() == text)
-        if element and element.parent and element.parent.parent:
-            element.parent.parent.decompose()
-
-
-def remove_element_by_class(soup, tag, class_name):
-    element = soup.find(tag, class_=class_name)
-    if element:
-        element.decompose()
-
-
-def remove_element_by_style(soup, tag, style_value):
-    element = soup.find(tag, style=style_value)
+def remove_element(soup, tag, attr_dict):
+    element = soup.find(tag, attrs=attr_dict)
     if element:
         element.decompose()
 
@@ -76,11 +66,10 @@ def extract_content(html_file):
         if tag is not None:
             tag.decompose()
 
-    remove_element_by_class(article, 'ul', 'related_post wp_rp')
-    remove_element_by_class(article, 'span', 'screen-reader-text')
-
-    remove_element_by_style(
-        article, 'div', 'margin-top: 15px; font-size: 11px;color: #cc0000;')
+    remove_element(article, 'ul', {'class': 'related_post wp_rp'})
+    remove_element(article, 'span', {'class': 'screen-reader-text'})
+    remove_element(article, 'div', {
+                   'style': 'margin-top: 15px; font-size: 11px;color: #cc0000;'})
 
     # 删除特定文本的元素
     text_list = [
@@ -90,7 +79,7 @@ def extract_content(html_file):
     remove_elements_by_text(article, text_list)
 
     text_list = ["酷壳404页面"]
-    remove_grandparent_of_elements_by_text(article, text_list)
+    remove_elements_by_text(article, text_list, level=3)
 
     # 将HTML内容转换为Markdown
     h = html2text.HTML2Text()
