@@ -4,7 +4,7 @@
 
 核心逻辑是从网站获取文章url，然后在从web archive中获取存档。技巧在于web archive会自动重定向，不需要我们获取全网址。
 
-如果你只是需要pdf版本的文件，你可以直接在release界面下载，如果需要markdown文件，可以在src/result.md找到，不需要对web archive造成额外的服务器压力。
+如果你只是需要pdf版本的文件，你可以直接在release界面下载，如果需要markdown文件，可以在src/result.md或者release界面找到，不需要对web archive造成额外的服务器压力。
 
 最后，再次感谢陈皓老师对我技术的启蒙之恩，2013年遇见您是我最大的幸运！
 
