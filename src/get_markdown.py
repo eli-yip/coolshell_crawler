@@ -99,11 +99,17 @@ def extract_content(html_file, output_directory):
     h.body_width = 0  # 设置一个更大的宽度限制
     markdown_content = h.handle(str(article))
 
+    time_info_to_add = '\n> ' + time_info
     markdown_lines = markdown_content.split('\n')
+    markdown_lines.insert(1, time_info_to_add)
+    markdown_content = '\n'.join(markdown_lines)
+
+    markdown_lines = markdown_content.split('\n')
+
     if len(markdown_lines) >= 2:
         markdown_content = '\n'.join(markdown_lines[:-2])
 
-    markdown_content += "\n---"
+    markdown_content += "\n---\n"
 
     # 将Markdown内容写入新的.md文件
     output_file_path = os.path.join(
