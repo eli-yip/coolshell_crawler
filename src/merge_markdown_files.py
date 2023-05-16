@@ -5,7 +5,7 @@ def main():
     # 指定 Markdown 文件所在的文件夹路径
     folder_path = os.path.join(os.getcwd(), 'markdowns')
     # 指定合并后的 Markdown 文件路径
-    output_file_path = os.path.join(os.getcwd(), 'output.md')
+    output_file_path = os.path.join(os.getcwd(), 'result.md')
 
     unsorted_files = os.listdir(folder_path)
     sorted_files = sorted(unsorted_files, key=lambda x: x.split('-')[0])
