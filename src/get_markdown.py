@@ -82,8 +82,6 @@ def extract_content(html_file, output_directory):
 
     remove_element(article, 'ul', {'class': 'related_post wp_rp'})
     remove_element(article, 'span', {'class': 'screen-reader-text'})
-    remove_element(article, 'div', {
-                   'style': 'margin-top: 15px; font-size: 11px;color: #cc0000;'})
 
     # 删除特定文本的元素
     text_list = [
