@@ -10,4 +10,10 @@
 
 最后，再次感谢陈皓老师对我技术的启蒙之恩，2013年遇见您是我最大的幸运！
 
+Update:
+
+苏洋大佬做了一份更好的，欢迎移步：
+
+https://github.com/soulteary/forever-coolshell
+
 R.I.P!
