@@ -4,11 +4,25 @@ from bs4 import BeautifulSoup
 import html2text
 
 
+def main() -> None:
+    html_directory = os.path.join(os.getcwd(), 'articles')
+    output_directory = os.path.join(os.getcwd(), 'markdowns')
+
+    if not os.path.exists(output_directory):
+        os.mkdir(output_directory)
+
+    for html_file in os.listdir(html_directory):
+        if html_file.endswith('.html'):
+            html_file_path = os.path.join(html_directory, html_file)
+            print(f'正在处理文件：{html_file_path}')
+            extract_content(html_file_path, output_directory)
+            print(f'处理完成：{html_file_path}')
+
+
 def remove_elements_by_text(soup, text_list, level=1):
     for text in text_list:
         element = soup.find(lambda tag: tag.text.strip() == text)
         if element:
-            print("find tag: ", element)
             for _ in range(level):
                 if element.parent:
                     element = element.parent
@@ -21,7 +35,7 @@ def remove_element(soup, tag, attr_dict):
         element.decompose()
 
 
-def extract_content(html_file):
+def extract_content(html_file, output_directory):
     # 获取文件名
     filename = os.path.splitext(os.path.basename(html_file))[0]
 
@@ -87,11 +101,18 @@ def extract_content(html_file):
     h.body_width = 0  # 设置一个更大的宽度限制
     markdown_content = h.handle(str(article))
 
+    markdown_lines = markdown_content.split('\n')
+    if len(markdown_lines) >= 2:
+        markdown_content = '\n'.join(markdown_lines[:-2])
+
+    markdown_content += "\n---"
+
     # 将Markdown内容写入新的.md文件
-    with open(f'{formatted_date}-{filename}.md', 'w', encoding='utf-8') as file:
+    output_file_path = os.path.join(
+        output_directory, f'{formatted_date}-{filename}.md')
+    with open(output_file_path, 'w', encoding='utf-8') as file:
         file.write(markdown_content)
 
 
-# 使用方法
-# 假设你的HTML文件名是'test.html'
-extract_content('./post-3.html')
+if __name__ == '__main__':
+    main()
